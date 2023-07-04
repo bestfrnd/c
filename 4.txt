@@ -1,0 +1,41 @@
+#include<stdio.h>
+#include<string.h>
+void main(){
+    char msg[200],key[200];
+    int i,j;
+    printf("Enter the message:");
+    gets(msg);
+    printf("Enter the key:");
+    gets(key);
+    void removespace(char plain[]){
+        for( i=0, j=0;i<strlen(plain);i++){
+            if(plain[i]!=' '){
+                plain[j]=toupper(plain[i]);
+                j++;
+            }
+        }
+    }
+    removespace(msg);
+    removespace(key);
+    printf("Entered message:%s\n Entered Key:%s\n",msg,key);
+    
+    char newKey[200],encrypt[200],decrypt[200];
+    for(i=0,j=0;i<strlen(msg);i++){
+        if(j==strlen(key)){
+            j=0;
+        }
+        newKey[i]=key[j];
+        j++;
+    }
+    printf("Newly generated key:%s",newKey);
+    for(i=0;i<strlen(msg);i++){
+        encrypt[i]=((msg[i]+newKey[i])%26)+'A';
+    }
+    encrypt[i]='\0';
+    printf("\nEncryption:%s",encrypt);
+    for(i=0;i<strlen(msg);i++){
+        decrypt[i]=((encrypt[i]-newKey[i]+26)%26)+'A';
+    }
+    encrypt[i]='\0';
+    printf("\nDecryption:%s",decrypt);
+}
