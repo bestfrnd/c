@@ -71,40 +71,39 @@ void cryption(int pt[8],int k1[8],int k2[8]){
     int ep[8]={4,1,2,3,2,3,4,1};
     int aip[8],aep[8],xor[8],as[8],as1[8];
     int p4[4]={2,4,3,1};
-//intial permutation
+
 for(i=0;i<8;i++){
 aip[i]=pt[(ip[i]-1)];
 }
-//expansion permutation
+
 for(i=0;i<8;i++){
 aep[i]=aip[(ep[i]+3)];
 }
-//xor of key1(for encryption)/key2(for decryption) and expamsion permutation
+
 for(i=0;i<8;i++){
 xor[i]=aep[i]^k1[i];
 }
 
 sboxfunction(sr,xor);//finding sbox values
 
-//creation of array on which expansion permutation is applied
+
 for(i=0;i<4;i++){
 as[i+4]=sr[p4[i]-1]^aip[i];
 as[i]=aip[i+4];
 }
 
-//expansion permutation
+
 for(i=0;i<8;i++){
 aep[i]=as[(ep[i]+3)];
 }
 
-//xor of key2(for encryption)/key1(for decryption) and expamsion permutation
+
 for(i=0;i<8;i++){
 xor[i]=aep[i]^k2[i];
 }
 
 sboxfunction(sr,xor);
 
-//creation of array to which inverse initial permutation is applied
 for(i=0;i<4;i++){
 as1[i]=sr[p4[i]-1]^as[i];
 as1[i+4]=as[i+4];
@@ -115,7 +114,7 @@ if(n==1)
 else
 {printf("\n decrypted text:");}
 
-//inverse initial permutation
+
 for(i=0;i<8;i++){
 et[i]=as1[(inverseip[i]-1)];
 printf("%d",et[i]);
@@ -125,17 +124,16 @@ printf("%d",et[i]);
 void main(){
 int key[10],pt[8];
 
-//plain text input
+
 printf("enter the 8 bit text:\n");
 for(i=0;i<8;i++){
 scanf("%d",&pt[i]);
 }
-//key input
+
 printf("enter the 10 bit key:\n");
 for(i=0;i<10;i++){
 scanf("%d",&key[i]);
 }
-//printing plaintext and key
 printf("the 8 bit text:");
 for(i=0;i<8;i++){
 printf("%d",pt[i]);
@@ -146,10 +144,9 @@ printf("%d",key[i]);
 }
 printf("\nenter 1 for encryption or 2 for decryption:");
 scanf("%d",&n);
-//key generation 
 keygeneration(key);
 
-//encryption and decryption
+
 switch (n)
 {
 case 1 :cryption(pt,key1,key2);
